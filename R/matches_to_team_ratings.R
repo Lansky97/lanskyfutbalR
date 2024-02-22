@@ -10,7 +10,7 @@
 #' @examples
 matches_to_team_ratings = function(matches, date = Sys.Date(), xG_factor = 0.6){
 
-  matches %>%
+output =  matches %>%
   #dtplyr::lazy_dt() %>%
     dplyr::filter(!is.na(HomeGoals), Date < date) %>%
     dplyr::select(Home, HomeGoals,Home_xG, Away,AwayGoals, Away_xG)%>%
@@ -45,6 +45,17 @@ matches_to_team_ratings = function(matches, date = Sys.Date(), xG_factor = 0.6){
     dplyr::ungroup() %>%
     dplyr::arrange(team, venue)
   #dplyr::as_tibble()
+
+tidyr::expand_grid(team = unique(matches$Home),
+            venue = c("home", "away")) %>%
+  dplyr::full_join(output, by = c("team", "venue"))%>%
+  dplyr::mutate(dplyr::across(.cols = c(games_played,Total_smoothed_goals, Total_smoothed_goalsA),
+                .fns = ~dplyr::if_else(is.na(expG), 0, .x)))%>%
+  dplyr::group_by(venue) %>%
+  dplyr::mutate(dplyr::across(.cols = c(expG, expGA, league_expG),
+                .fns = ~dplyr::if_else(is.na(.x), mean(.x, na.rm = T), .x))) %>%
+  dplyr::ungroup()
+
 
 
 }

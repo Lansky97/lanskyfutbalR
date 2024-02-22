@@ -4,7 +4,7 @@
 \alias{get_final_projection}
 \title{get final projections from simulation standings}
 \usage{
-get_final_projection(sim_standings, mode)
+get_final_projection(sim_standings, mode = "mean")
 }
 \arguments{
 \item{mode}{}

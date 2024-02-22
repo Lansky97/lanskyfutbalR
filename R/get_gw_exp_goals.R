@@ -10,6 +10,7 @@
 #' @examples
 get_gw_exp_goals = function(gw_fixtures, team_ratings, league_adj){
 
+  #TODO: THINK ABOUT gameID
   gw_team_ratings = team_ratings %>%
                       dplyr::select(team, venue, expG, expGA, league_expG) %>%
                       dplyr::filter(

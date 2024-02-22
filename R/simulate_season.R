@@ -26,8 +26,8 @@ simulate_season = function(fixtures, results,team_ratings, league_adj,xG_factor,
                                                      league_adj = league_adj) %>%
                                     simulate_gw()
 
-    team_ratings = team_ratings %>%
-                    update_team_ratings(gw_results = season_results[[paste(gw)]],
+    team_ratings = update_team_ratings(current_team_ratings = team_ratings,
+                                        gw_results = season_results[[paste(gw)]],
                                         xG_factor =xG_factor,
                                         smooth = smooth,
                                         hot = hot)
@@ -39,6 +39,7 @@ simulate_season = function(fixtures, results,team_ratings, league_adj,xG_factor,
 
   season_standings = season_results %>%
                       dplyr::bind_rows(results) %>%
+                      dplyr::mutate(gameID = dplyr::row_number()) %>%
                       results_to_standings(xTable = F)
 
   list(results = season_results,

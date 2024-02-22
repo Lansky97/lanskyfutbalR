@@ -7,47 +7,47 @@
 #' @export
 #'
 #' @examples
-get_final_projection = function(sim_standings, mode){
+get_final_projection = function(sim_standings, mode = 'mean'){
 
   if(mode == 'mean'){
     final_standings = sim_standings %>%
-      group_by(team) %>%
-      mutate(across(.cols = c(Pts, G, GA),
-                    .fns = ~round(mean(.x), 0))) %>%
-      mutate(across(.cols = c(W, D, L, xG, xGA),
-                    .fns = ~round(mean(.x), 1))) %>%
-      select(-c(Rk, trial)) %>%
-      ungroup() %>%
-      mutate(GD = G - GA,
-             xGD = xG - xGA) %>%
-      distinct() %>%
-      arrange(desc(Pts),
-              desc(GD),
-              desc(G)) %>%
-      mutate(Rk = row_number()) %>%
-      select(Rk, team, W, D, L,
+      dplyr::group_by(team) %>%
+      dplyr::mutate(dplyr::across(.cols = c(Pts, G, GA),
+                                  .fns = ~round(mean(.x), 0))) %>%
+      dplyr::mutate(dplyr::across(.cols = c(W, D, L, xG, xGA),
+                                  .fns = ~round(mean(.x), 1))) %>%
+      dplyr::select(-c(Rk, trial)) %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate(GD = G - GA,
+                    xGD = xG - xGA) %>%
+      dplyr::distinct() %>%
+      dplyr::arrange(desc(Pts),
+                     desc(GD),
+                     desc(G)) %>%
+      dplyr::mutate(Rk = row_number()) %>%
+      dplyr::select(Rk, team, W, D, L,
              G, GA, GD, Pts, xG, xGA)
   }
 
   if(mode == 'median'){
-
+#TODO: choose median trial
     final_standings = sim_standings %>%
-      group_by(team) %>%
-      mutate(across(.cols = c(Pts, G, GA),
-                    .fns = ~round(median(.x), 0))) %>%
-      mutate(across(.cols = c(W, D, L, xG, xGA),
-                    .fns = ~round(median(.x), 1))) %>%
-      select(-c(Rk, trial)) %>%
-      ungroup() %>%
-      mutate(GD = G - GA,
-             xGD = xG - xGA) %>%
-      distinct() %>%
-      arrange(desc(Pts),
-              desc(GD),
-              desc(G)) %>%
-      mutate(Rk = row_number()) %>%
-      select(Rk, team, W, D, L,
-             G, GA, GD, Pts, xG, xGA)
+      dplyr::group_by(team) %>%
+      dplyr::mutate(dplyr::across(.cols = c(Pts, G, GA),
+                                    .fns = ~round(median(.x), 0))) %>%
+      dplyr::mutate(dplyr::across(.cols = c(W, D, L, xG, xGA),
+                                  .fns = ~round(median(.x), 1))) %>%
+      dplyr::select(-c(Rk, trial)) %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate(GD = G - GA,
+                    xGD = xG - xGA) %>%
+      dplyr::distinct() %>%
+      dplyr::arrange(desc(Pts),
+                     desc(GD),
+                     desc(G)) %>%
+      dplyr::mutate(Rk =dplyr::row_number()) %>%
+      dplyr::select(Rk, team, W, D, L,
+                    G, GA, GD, Pts, xG, xGA)
 
   }
 
