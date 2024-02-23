@@ -20,12 +20,12 @@ output =  matches %>%
                   away_team = Away,
                   away_goals = AwayGoals,
                   away_xG = Away_xG) %>%
-    dplyr::mutate(gameId = row_number())%>%
+    dplyr::mutate(gameId = dplyr::row_number())%>%
     tidyr::pivot_longer(-gameId,
                  names_to = c("venue",".value"),
                  names_sep = "_")%>%
     dplyr::group_by(gameId) %>%
-    dplyr::mutate(xG = if_else(is.na(xG), goals, xG))%>%
+    dplyr::mutate(xG = dplyr::if_else(is.na(xG), goals, xG))%>%
     dplyr::mutate(gA = sum(goals)- goals, xGA = sum(xG) - xG)%>%
     dplyr::ungroup()%>%
     dplyr::mutate(smoothed_goals = (1-xG_factor)*goals + xG_factor*xG,
@@ -35,7 +35,7 @@ output =  matches %>%
                   expGA = round(mean(smoothed_goalsA),2)) %>%
     dplyr::mutate(Total_smoothed_goals = sum(smoothed_goals),
                   Total_smoothed_goalsA = sum(smoothed_goalsA),
-                  games_played = n())%>%
+                  games_played = dplyr::n())%>%
     dplyr::select(team, venue,expG, expGA, games_played,
                   Total_smoothed_goals, Total_smoothed_goalsA)%>%
     dplyr::ungroup()%>%

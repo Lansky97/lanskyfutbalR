@@ -17,11 +17,11 @@ get_projection_odds = function(final_projections, sim_standings, trials, europe 
 
   sim_standings %>%
     dplyr::group_by(team, Rk)%>%
-    dplyr::mutate(chance = n()/trials) %>%
+    dplyr::mutate(chance = dplyr::n()/trials) %>%
     dplyr::select(team, Rk, chance) %>%
     dplyr::ungroup()%>%
     dplyr::mutate(chance_keep = chance,
-                  flag = case_when(
+                  flag = dplyr::case_when(
                             Rk ==1 ~ "champion",
                             Rk <=4 ~ "UCL",
                             Rk <= europe ~ "UEFA",

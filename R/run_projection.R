@@ -60,7 +60,7 @@ run_projection = function(trials, matches, date = Sys.Date(), league_adj, xG_fac
   fixtures_with_odds = sim_summary$results %>%
     get_match_odds(trials = trials)
 
-  params = tibble(trials = trials,
+  params = tibble::tibble(trials = trials,
                   date = date,
                   league_adj = league_adj,
                   xG_factor = xG_factor,

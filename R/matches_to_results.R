@@ -13,7 +13,7 @@ matches_to_results = function(matches, date = Sys.Date()){
     #dtplyr::lazy_dt()%>%
     dplyr::filter(!is.na(HomeGoals), Date < date) %>%
     dplyr::arrange(Date) %>%
-    dplyr::mutate(gameID = row_number(),
+    dplyr::mutate(gameID = dplyr::row_number(),
                   GW = as.numeric(Wk)) %>%
     dplyr::select(gameID, Date, GW,
                   home_team = Home,  away_team = Away,

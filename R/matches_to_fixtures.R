@@ -14,7 +14,7 @@ matches_to_fixtures = function(matches, date = Sys.Date()){
       dplyr::filter(Date >= date) %>%
       dplyr::mutate(GW = as.integer(Wk)) %>%
       dplyr::arrange(GW) %>%
-      dplyr::mutate(gameID = row_number())%>%
+      dplyr::mutate(gameID = dplyr::row_number())%>%
       dplyr::select(gameID, Date, GW, home_team = Home,away_team = Away)
     #dplyr::as_tibble()
 

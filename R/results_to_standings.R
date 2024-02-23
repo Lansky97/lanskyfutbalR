@@ -17,13 +17,13 @@ results_to_standings = function(results, xTable = F){
                 dplyr::mutate(expA = sum(exp)-exp,
                               scoreA = sum(score) - score)%>%
                 dplyr::ungroup()%>%
-                dplyr::mutate(loss = if_else(draw == 0 & win == 0,1,0),
-                              xLoss = if_else(xDraw == 0 & xWin == 0,1,0)) %>%
+                dplyr::mutate(loss = dplyr::if_else(draw == 0 & win == 0,1,0),
+                              xLoss = dplyr::if_else(xDraw == 0 & xWin == 0,1,0)) %>%
                 dplyr::group_by(team, venue) %>%
-                dplyr::mutate(across(.cols = c(exp, expA,score, scoreA, xWin,win, xDraw, draw, xLoss, loss),
+                dplyr::mutate(dplyr::across(.cols = c(exp, expA,score, scoreA, xWin,win, xDraw, draw, xLoss, loss),
                                      .fns = ~sum(.x),
                                      .names = "total_{.col}")) %>%
-                dplyr::mutate(MP = n())%>%
+                dplyr::mutate(MP = dplyr::n())%>%
                 dplyr::ungroup()%>%
                 dplyr::select(venue,team, MP,
                               W = total_win, D = total_draw, L = total_loss,
@@ -34,7 +34,7 @@ results_to_standings = function(results, xTable = F){
                 dplyr::mutate(GD = G - GA, xGD = xG - xGA,
                               Pts = 3*W + D, xPts = 3*xW + xD) %>%
                 dplyr::group_by(team) %>%
-                dplyr::mutate(across(.cols = -c(venue),
+                dplyr::mutate(dplyr::across(.cols = -c(venue),
                                      .fns = ~sum(.x))) %>%
                 dplyr::ungroup() %>%
                 dplyr::select(-venue) %>%
@@ -43,10 +43,10 @@ results_to_standings = function(results, xTable = F){
 
   if(!xTable){
   standings = standings  %>%
-                dplyr::arrange(desc(Pts),
-                               desc(GD),
-                               desc(G)) %>%
-                dplyr::mutate(Rk =row_number()) %>%
+                dplyr::arrange(dplyr::desc(Pts),
+                               dplyr::desc(GD),
+                               dplyr::desc(G)) %>%
+                dplyr::mutate(Rk = dplyr::row_number()) %>%
                 dplyr::select(Rk, team, MP,
                               W, D, L, G, GA,
                               GD, Pts, xG, xGA, xGD)
@@ -55,10 +55,10 @@ results_to_standings = function(results, xTable = F){
 
   if(xTable){
     standings = standings %>%
-                  dplyr::arrange(desc(xPts),
-                                 desc(xGD),
-                                 desc(xG)) %>%
-                  dplyr::mutate(Rk =row_number()) %>%
+                  dplyr::arrange(dplyr::desc(xPts),
+                                 dplyr::desc(xGD),
+                                 dplyr::desc(xG)) %>%
+                  dplyr::mutate(Rk =dplyr::row_number()) %>%
                   dplyr::select(Rk, team, MP,
                                 xW, xD, xL, xG, xGA,
                                 xGD, xPts, G, GA, GD)

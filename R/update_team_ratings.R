@@ -34,8 +34,8 @@ update_team_ratings = function(current_team_ratings, gw_results, xG_factor,smoot
                   expGA = dplyr::if_else(games_played == 0, expGA, Total_smoothed_goalsA / games_played))%>%
     dplyr::group_by(venue) %>%
     dplyr::mutate(league_expG = mean(expG)) %>%
-    dplyr::mutate(across(.cols = c(expG, expGA),
-                         .fns = ~if_else(games_played == 0, mean(.x), .x)))%>%
+    dplyr::mutate(dplyr::across(.cols = c(expG, expGA),
+                         .fns = ~dplyr::if_else(games_played == 0, mean(.x), .x)))%>%
     dplyr::ungroup() %>%
     dplyr::select(-smoothed_goals, -smoothed_goalsA)
 

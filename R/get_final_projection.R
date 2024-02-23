@@ -21,10 +21,10 @@ get_final_projection = function(sim_standings, mode = 'mean'){
       dplyr::mutate(GD = G - GA,
                     xGD = xG - xGA) %>%
       dplyr::distinct() %>%
-      dplyr::arrange(desc(Pts),
-                     desc(GD),
-                     desc(G)) %>%
-      dplyr::mutate(Rk = row_number()) %>%
+      dplyr::arrange(dplyr::desc(Pts),
+                     dplyr::desc(GD),
+                     dplyr::desc(G)) %>%
+      dplyr::mutate(Rk = dplyr::row_number()) %>%
       dplyr::select(Rk, team, W, D, L,
              G, GA, GD, Pts, xG, xGA)
   }
@@ -42,9 +42,9 @@ get_final_projection = function(sim_standings, mode = 'mean'){
       dplyr::mutate(GD = G - GA,
                     xGD = xG - xGA) %>%
       dplyr::distinct() %>%
-      dplyr::arrange(desc(Pts),
-                     desc(GD),
-                     desc(G)) %>%
+      dplyr::arrange(dplyr::desc(Pts),
+                     dplyr::desc(GD),
+                     dplyr::desc(G)) %>%
       dplyr::mutate(Rk =dplyr::row_number()) %>%
       dplyr::select(Rk, team, W, D, L,
                     G, GA, GD, Pts, xG, xGA)
