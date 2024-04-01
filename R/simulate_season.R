@@ -7,12 +7,13 @@
 #' @param smooth
 #' @param hot
 #' @param results
+#' @param deductions
 #'
 #' @return
 #' @export
 #'
 #' @examples
-simulate_season = function(fixtures, results,team_ratings, league_adj,xG_factor, smooth, hot){
+simulate_season = function(fixtures, results, deductions, team_ratings, league_adj,xG_factor, smooth, hot){
 
   season_results = vector('list', length(unique(fixtures$GW)))
 
@@ -40,7 +41,7 @@ simulate_season = function(fixtures, results,team_ratings, league_adj,xG_factor,
   season_standings = season_results %>%
                       dplyr::bind_rows(results) %>%
                       dplyr::mutate(gameID = dplyr::row_number()) %>%
-                      results_to_standings(xTable = F)
+                      results_to_standings(deductions = deductions, xTable = F)
 
   list(results = season_results,
        ratings = team_ratings,

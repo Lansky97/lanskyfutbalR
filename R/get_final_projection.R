@@ -30,7 +30,7 @@ get_final_projection = function(sim_standings, mode = 'mean'){
   }
 
   if(mode == 'median'){
-#TODO: choose median trial
+
     final_standings = sim_standings %>%
       dplyr::group_by(team) %>%
       dplyr::mutate(dplyr::across(.cols = c(Pts, G, GA),

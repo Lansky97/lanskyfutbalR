@@ -4,12 +4,13 @@
 #' @param date
 #' @param xTable
 #' @param xG_factor
+#' @param deductions
 #'
 #' @return
 #' @export
 #'
 #' @examples
-split_matches = function(matches, date = Sys.Date(), xG_factor, xTable = F){
+split_matches = function(matches, deductions, date = Sys.Date(), xG_factor, xTable = F){
 
   results = matches %>%
               matches_to_results(date = date)
@@ -22,7 +23,7 @@ split_matches = function(matches, date = Sys.Date(), xG_factor, xTable = F){
                                           xG_factor = xG_factor)
 
   standings = results %>%
-                results_to_standings(xTable = xTable)
+                results_to_standings(deductions, xTable = xTable)
 
   list(results = results,
        fixtures = fixtures,

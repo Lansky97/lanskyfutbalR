@@ -2,12 +2,15 @@
 #'
 #' @param results
 #' @param xTable
+#' @param deductions
 #'
 #' @return
 #' @export
 #'
 #' @examples
-results_to_standings = function(results, xTable = F){
+results_to_standings = function(results, deductions = NULL,  xTable = F){
+
+  deductions = points_deductions_table(results, deductions)
 
   standings = results %>%
                 tidyr::pivot_longer(-c(gameID, Date, GW, draw, xDraw),
@@ -38,7 +41,8 @@ results_to_standings = function(results, xTable = F){
                                      .fns = ~sum(.x))) %>%
                 dplyr::ungroup() %>%
                 dplyr::select(-venue) %>%
-                dplyr::distinct()
+                dplyr::distinct() %>%
+                apply_points_deductions(deductions = deductions)
 
 
   if(!xTable){
@@ -58,7 +62,7 @@ results_to_standings = function(results, xTable = F){
                   dplyr::arrange(dplyr::desc(xPts),
                                  dplyr::desc(xGD),
                                  dplyr::desc(xG)) %>%
-                  dplyr::mutate(Rk =dplyr::row_number()) %>%
+                  dplyr::mutate(Rk = dplyr::row_number()) %>%
                   dplyr::select(Rk, team, MP,
                                 xW, xD, xL, xG, xGA,
                                 xGD, xPts, G, GA, GD)
