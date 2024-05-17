@@ -8,12 +8,13 @@
 #' @param smooth
 #' @param hot
 #' @param results
+#' @param deductions
 #'
 #' @return
 #' @export
 #'
 #' @examples
-run_season_trials = function(trials, fixtures,results, team_ratings, league_adj,xG_factor,smooth,hot){
+run_season_trials = function(trials, fixtures, results, deductions, team_ratings, league_adj,xG_factor,smooth,hot){
 
   sim_results = vector('list', trials)
   sim_ratings = vector('list', trials)
@@ -27,6 +28,7 @@ run_season_trials = function(trials, fixtures,results, team_ratings, league_adj,
 
     sim_summary = simulate_season(fixtures = fixtures,
                                   results = results,
+                                  deductions = deductions,
                                   team_ratings = team_ratings,
                                   league_adj = league_adj,
                                   xG_factor = xG_factor,

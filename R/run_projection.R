@@ -9,6 +9,7 @@
 #' @param hot
 #' @param europe
 #' @param rel
+#' @param deductions
 #'
 #' @return
 #' @export
@@ -17,11 +18,12 @@
 #'
 #'
 
-#TODO: remove matches parameter so it goes online itself
-run_projection = function(trials, matches, date = Sys.Date(), league_adj, xG_factor, smooth, hot, europe = 6, rel = 18){
+run_projection = function(trials, matches, deductions, date = Sys.Date(), league_adj, xG_factor, smooth, hot, europe = 6, rel = 18){
 
+  #TODO: remove matches parameter so it goes online itself
   matches_split = matches %>%
     split_matches(date = date,
+                  deductions = deductions,
                   xG_factor = xG_factor,
                   xTable = F)
 
@@ -33,6 +35,7 @@ run_projection = function(trials, matches, date = Sys.Date(), league_adj, xG_fac
   sim_summary = run_season_trials(trials = trials,
                                   fixtures = fixtures,
                                   results = results,
+                                  deductions = deductions,
                                   team_ratings = team_ratings,
                                   league_adj = league_adj,
                                   xG_factor = xG_factor,
@@ -79,6 +82,7 @@ run_projection = function(trials, matches, date = Sys.Date(), league_adj, xG_fac
        mean_projection_odds =  mean_projection_odds,
        median_final_projections = median_final_projections,
        median_projection_odds =  median_projection_odds,
-       params = params)
+       params = params,
+       deductions = deductions)
 
 }
