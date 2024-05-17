@@ -1,13 +1,23 @@
-#' convert list of results to current standings
+#' Convert Match Results to League Standings
 #'
-#' @param results
-#' @param xTable
-#' @param deductions
+#' This function processes match results to generate league standings, including the option to create an expected table based on expected goals (xG).
 #'
-#' @return
-#' @export
+#' @param results A data frame containing match results.
+#' @param deductions A data frame containing points deductions for teams (default is NULL).
+#' @param xTable A logical indicating whether to include expected table (xTable) in standings (default is FALSE).
+#'
+#' @return A data frame containing league standings with columns for rank, team, matches played, wins, draws, losses, goals for, goals against, goal difference, points, expected goals, expected goals against, expected goal difference
+#'
+#' @details This function calculates the league standings based on actual match results and, optionally, based on expected goals. It handles points deductions and ranks teams accordingly.
 #'
 #' @examples
+#' \dontrun{
+#'   results <- data.frame(...) # Your match results data here
+#'   deductions <- data.frame(...) # Your points deductions data here
+#'   standings <- results_to_standings(results, deductions, xTable = TRUE)
+#' }
+#'
+#' @export
 results_to_standings = function(results, deductions = NULL,  xTable = F){
 
   deductions = points_deductions_table(results, deductions)

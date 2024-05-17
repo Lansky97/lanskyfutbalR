@@ -2,12 +2,13 @@
 % Please edit documentation in R/run_season_trials.R
 \name{run_season_trials}
 \alias{run_season_trials}
-\title{run simulation of n random seasons of given remaining fixtures}
+\title{Run Multiple Season Simulations}
 \usage{
 run_season_trials(
   trials,
   fixtures,
   results,
+  deductions,
   team_ratings,
   league_adj,
   xG_factor,
@@ -16,8 +17,53 @@ run_season_trials(
 )
 }
 \arguments{
-\item{results}{}
+\item{trials}{An integer specifying the number of trials to run.}
+
+\item{fixtures}{A data frame containing the fixtures for the season, including columns for game week (GW), home team, and away team.}
+
+\item{results}{A data frame containing the initial results of the season, if any.}
+
+\item{deductions}{A data frame containing points deductions for teams.}
+
+\item{team_ratings}{A data frame containing the initial team ratings, including expected goals (expG), expected goals against (expGA), and league average expected goals (league_expG) for each team at home and away venues.}
+
+\item{league_adj}{A logical indicating whether to apply league-wide adjustments to the expected goals calculations (default is FALSE).}
+
+\item{xG_factor}{A numeric factor used to smooth the goals with expected goals (xG).}
+
+\item{smooth}{A logical indicating whether to apply smoothing to the goals (default is TRUE).}
+
+\item{hot}{A logical indicating whether to update the team ratings with the current game week results (default is TRUE).}
+}
+\value{
+A list containing:
+\item{results}{A data frame with the simulated match results for all trials.}
+\item{ratings}{A data frame with the updated team ratings after all trials.}
+\item{standings}{A data frame with the final league standings after all trials.}
 }
 \description{
-run simulation of n random seasons of given remaining fixtures
+This function runs multiple trials of season simulations based on given fixtures, initial results, points deductions, and team ratings.
+}
+\details{
+This function runs the specified number of trials of season simulations. For each trial, it simulates the entire season, updates the team ratings, and compiles the results. The results, updated ratings, and final standings for all trials are combined and returned.
+}
+\examples{
+\dontrun{
+  fixtures <- data.frame(GW = rep(1:38, each = 10),
+                         home_team = sample(letters[1:20], 380, replace = TRUE),
+                         away_team = sample(letters[1:20], 380, replace = TRUE))
+  results <- data.frame() # Initial results can be empty
+  deductions <- data.frame(team = c("Team A", "Team B"), points_deducted = c(3, 1))
+  team_ratings <- data.frame(team = rep(letters[1:20], each = 2),
+                             venue = rep(c("home", "away"), 20),
+                             expG = runif(40, 1, 2),
+                             expGA = runif(40, 1, 2),
+                             league_expG = runif(40, 1, 2),
+                             games_played = sample(1:10, 40, replace = TRUE),
+                             Total_smoothed_goals = runif(40, 10, 20),
+                             Total_smoothed_goalsA = runif(40, 10, 20))
+  simulations <- run_season_trials(trials = 100, fixtures, results, deductions, team_ratings,
+                                   league_adj = TRUE, xG_factor = 0.6, smooth = TRUE, hot = TRUE)
+}
+
 }

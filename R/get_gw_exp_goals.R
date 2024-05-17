@@ -1,13 +1,29 @@
-#' Title
+#' Calculate Expected Goals for Game Week Fixtures
 #'
-#' @param gw_fixtures
-#' @param team_ratings
-#' @param league_adj
+#' This function calculates the expected goals for each fixture in a given game week based on team ratings and optional league adjustments.
 #'
-#' @return
-#' @export
+#' @param gw_fixtures A data frame containing the fixtures for the game week, including columns for home and away teams.
+#' @param team_ratings A data frame containing team ratings, including expected goals (expG), expected goals against (expGA), and league average expected goals (league_expG) for each team at home and away venues.
+#' @param league_adj A logical indicating whether to apply league-wide adjustments to the expected goals calculations (default is FALSE).
+#'
+#' @return A data frame with the calculated expected goals for both home and away teams in each fixture, including game ID, date, and game week.
+#'
+#' @details This function joins the fixtures with team ratings, applies optional league adjustments, and calculates the expected goals for each team in each fixture.
 #'
 #' @examples
+#' \dontrun{
+#'   gw_fixtures <- data.frame(gameID = 1:2, Date = Sys.Date(), GW = 1,
+#'                             home_team = c("Team A", "Team B"),
+#'                             away_team = c("Team C", "Team D"))
+#'   team_ratings <- data.frame(team = c("Team A", "Team B", "Team C", "Team D"),
+#'                              venue = rep(c("home", "away"), each = 4),
+#'                              expG = runif(8, 1, 2),
+#'                              expGA = runif(8, 1, 2),
+#'                              league_expG = runif(8, 1, 2))
+#'   gw_exp_goals <- get_gw_exp_goals(gw_fixtures, team_ratings, league_adj = TRUE)
+#' }
+#'
+#' @export
 get_gw_exp_goals = function(gw_fixtures, team_ratings, league_adj){
 
   #TODO: THINK ABOUT gameID

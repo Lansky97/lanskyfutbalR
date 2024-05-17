@@ -1,11 +1,23 @@
-#' Generate projection table for projection table
+#' Generate Projected League Table
 #'
-#' @param projection_ouputs
+#' This function generates a projected league table using the output from the season projection simulations.
 #'
-#' @return
-#' @export
+#' @param projection_outputs A list containing the outputs from the `run_projection` function, including mean final projections and mean projection odds.
+#'
+#' @return A gt table displaying the projected league standings with additional projection odds.
+#'
+#' @details This function creates a visually styled table showing the projected league standings. It includes columns for rank (Rk), team, points (Pts), goal difference (GD), and probabilities for winning the title, qualifying for the Champions League (CL), qualifying for the Europa League (EL), and relegation (REL). The table is styled with color coding for different ranks and includes a header and footnotes.
 #'
 #' @examples
+#' \dontrun{
+#'   projection_outputs <- run_projection(trials = 100, matches, deductions, date = Sys.Date(),
+#'                                        league_adj = TRUE, xG_factor = 0.6, smooth = TRUE, hot = TRUE,
+#'                                        europe = 6, rel = 18)
+#'   projected_table <- generate_projected_table(projection_outputs)
+#'   print(projected_table)
+#' }
+#'
+#' @export
 generate_projected_table = function(projection_outputs){
 
 projection_outputs$mean_final_projections %>%

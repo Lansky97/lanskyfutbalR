@@ -2,13 +2,38 @@
 % Please edit documentation in R/get_final_projection.R
 \name{get_final_projection}
 \alias{get_final_projection}
-\title{get final projections from simulation standings}
+\title{Get Final Projection from Simulation Standings}
 \usage{
 get_final_projection(sim_standings, mode = "mean")
 }
 \arguments{
-\item{mode}{}
+\item{sim_standings}{A data frame containing the simulation standings from multiple trials, including columns for points (Pts), goals (G), goals against (GA), wins (W), draws (D), losses (L), expected goals (xG), and expected goals against (xGA).}
+
+\item{mode}{A character string specifying whether to use the 'mean' or 'median' for the final projection (default is 'mean').}
+}
+\value{
+A data frame with the final projected standings, including columns for rank (Rk), team, wins (W), draws (D), losses (L), goals (G), goals against (GA), goal difference (GD), points (Pts), expected goals (xG), and expected goals against (xGA).
 }
 \description{
-get final projections from simulation standings
+This function calculates the final projected standings from the simulation standings using either the mean or median of the simulation results.
+}
+\details{
+This function calculates the final projected standings by taking the mean or median of the relevant columns from the simulation standings. It then ranks the teams based on points, goal difference, and goals.
+}
+\examples{
+\dontrun{
+  sim_standings <- data.frame(team = rep(letters[1:20], each = 100),
+                              Pts = sample(30:90, 2000, replace = TRUE),
+                              G = sample(30:90, 2000, replace = TRUE),
+                              GA = sample(30:90, 2000, replace = TRUE),
+                              W = sample(10:30, 2000, replace = TRUE),
+                              D = sample(5:15, 2000, replace = TRUE),
+                              L = sample(5:15, 2000, replace = TRUE),
+                              xG = runif(2000, 30, 90),
+                              xGA = runif(2000, 30, 90),
+                              Rk = rep(1:20, each = 100),
+                              trial = rep(1:100, times = 20))
+  final_projection <- get_final_projection(sim_standings, mode = 'mean')
+}
+
 }
