@@ -1,11 +1,23 @@
-#' Generate Projected rank odds tabke
+#' Generate Projected Rank Odds Table
 #'
-#' @param projection_outputs
+#' This function generates a table displaying the projected rank odds for each team using the output from the season projection simulations.
 #'
-#' @return
-#' @export
+#' @param projection_outputs A list containing the outputs from the `run_projection` function, including mean projection odds.
+#'
+#' @return A gt table displaying the projected rank odds for each team.
+#'
+#' @details This function creates a visually styled table showing the projected rank odds for each team based on the simulation results. It includes the probability of each team finishing in each rank position, formatted as percentages.
 #'
 #' @examples
+#' \dontrun{
+#'   projection_outputs <- run_projection(trials = 100, matches, deductions, date = Sys.Date(),
+#'                                        league_adj = TRUE, xG_factor = 0.6, smooth = TRUE, hot = TRUE,
+#'                                        europe = 6, rel = 18)
+#'   rank_odds_table <- generate_projected_rank_odds(projection_outputs)
+#'   print(rank_odds_table)
+#' }
+#'
+#' @export
 generate_projected_rank_odds = function(projection_outputs){
 
 diags = function(x) {gt::cells_body(columns = !!rlang::sym(x), rows = x)}

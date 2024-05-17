@@ -1,11 +1,23 @@
-#' Title
+#' Simulate Game Week Fixtures
 #'
-#' @param gw_fixtures
+#' This function simulates the outcomes of a given game week's fixtures based on expected goals.
 #'
-#' @return
-#' @export
+#' @param gw_fixtures A data frame containing the fixtures for the game week, including columns for expected goals (`home_exp` and `away_exp`).
+#'
+#' @return A data frame with simulated match results including scores, win/draw indicators, and expected win/draw indicators.
+#'
+#' @details This function uses a Poisson distribution to simulate the number of goals scored by the home and away teams based on their expected goals. It then determines the match outcome (win, draw, or loss) for both actual and expected goals.
 #'
 #' @examples
+#' \dontrun{
+#'   gw_fixtures <- data.frame(home_team = c("Team A", "Team B"),
+#'                             away_team = c("Team C", "Team D"),
+#'                             home_exp = c(1.5, 2.0),
+#'                             away_exp = c(1.0, 1.5))
+#'   simulated_results <- simulate_gw(gw_fixtures)
+#' }
+#'
+#' @export
 simulate_gw = function(gw_fixtures){
 
   gw_fixtures %>%

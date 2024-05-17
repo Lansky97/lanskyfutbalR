@@ -1,15 +1,38 @@
-#' Title
+#' Update Team Ratings Based on Game Week Results
 #'
-#' @param current_team_ratings
-#' @param gw_results
-#' @param xG_factor
-#' @param smooth
-#' @param hot
+#' This function updates the team ratings based on the results of the game week.
 #'
-#' @return
-#' @export
+#' @param current_team_ratings A data frame containing the current team ratings.
+#' @param gw_results A data frame containing the results of the game week.
+#' @param xG_factor A numeric factor used to smooth the goals with expected goals (xG).
+#' @param smooth A logical indicating whether to apply smoothing to the goals (default is TRUE).
+#' @param hot A logical indicating whether to update the team ratings with the current game week results (default is TRUE).
+#'
+#' @return A data frame with updated team ratings, including expected goals (expG), expected goals against (expGA), and league average expected goals (league_expG) for each team at home and away venues.
+#'
+#' @details This function updates the team ratings based on the results of the current game week. It applies smoothing if specified, and updates the cumulative goals and games played for each team. The league average expected goals are also recalculated.
 #'
 #' @examples
+#' \dontrun{
+#'   current_team_ratings <- data.frame(team = c("Team A", "Team B"),
+#'                                      venue = rep(c("home", "away"), each = 2),
+#'                                      expG = runif(4, 1, 2),
+#'                                      expGA = runif(4, 1, 2),
+#'                                      league_expG = runif(4, 1, 2),
+#'                                      games_played = sample(1:10, 4),
+#'                                      Total_smoothed_goals = runif(4, 10, 20),
+#'                                      Total_smoothed_goalsA = runif(4, 10, 20))
+#'   gw_results <- data.frame(gameID = 1:2, Date = Sys.Date(), GW = 1,
+#'                            home_team = c("Team A", "Team B"),
+#'                            away_team = c("Team C", "Team D"),
+#'                            home_score = c(2, 1),
+#'                            away_score = c(1, 2),
+#'                            home_exp = c(1.5, 2.0),
+#'                            away_exp = c(1.0, 1.5))
+#'   updated_team_ratings <- update_team_ratings(current_team_ratings, gw_results, xG_factor = 0.6, smooth = TRUE, hot = TRUE)
+#' }
+#'
+#' @export
 update_team_ratings = function(current_team_ratings, gw_results, xG_factor,smooth, hot){
 
   if(hot){

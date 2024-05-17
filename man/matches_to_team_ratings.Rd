@@ -2,13 +2,30 @@
 % Please edit documentation in R/matches_to_team_ratings.R
 \name{matches_to_team_ratings}
 \alias{matches_to_team_ratings}
-\title{convert matches to team ratings based on xG factor of played games}
+\title{Calculate Team Ratings from Matches}
 \usage{
 matches_to_team_ratings(matches, date = Sys.Date(), xG_factor = 0.6)
 }
 \arguments{
-\item{date}{}
+\item{matches}{A data frame containing match data.}
+
+\item{date}{The date for filtering matches (default is the current date).}
+
+\item{xG_factor}{A numeric factor used in calculating smoothed goals (default is 0.6).}
+}
+\value{
+A data frame containing team ratings, including expected goals (expG), expected goals against (expGA), total smoothed goals, and total smoothed goals against for both home and away matches.
 }
 \description{
-convert matches to team ratings based on xG factor of played games
+This function processes match data to calculate team ratings based on goals scored and expected goals (xG).
+}
+\details{
+This function filters the matches to include only those that have already been played (i.e., matches with non-missing scores and dates before the specified date). It then calculates various statistics including smoothed goals and expected goals for each team and venue (home and away).
+}
+\examples{
+\dontrun{
+  matches <- data.frame(...) # Your match data here
+  team_ratings <- matches_to_team_ratings(matches, date = Sys.Date(), xG_factor = 0.6)
+}
+
 }

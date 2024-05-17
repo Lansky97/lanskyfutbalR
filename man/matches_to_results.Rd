@@ -2,13 +2,28 @@
 % Please edit documentation in R/matches_to_results.R
 \name{matches_to_results}
 \alias{matches_to_results}
-\title{convert list of matches to list of results to be played}
+\title{Convert Matches to Results}
 \usage{
 matches_to_results(matches, date = Sys.Date())
 }
 \arguments{
-\item{date}{}
+\item{matches}{A data frame containing match data.}
+
+\item{date}{The date for filtering matches (default is the current date).}
+}
+\value{
+A data frame of match results including game ID, date, game week, team names, expected goals, actual scores, and win/draw indicators.
 }
 \description{
-convert list of matches to list of results to be played
+This function processes match data to generate a data frame of match results up to a specified date.
+}
+\details{
+This function filters the matches to include only those that have already been played (i.e., matches with non-missing scores and dates before the specified date). It then arranges the matches by date, assigns game IDs and game weeks, and includes additional columns for expected and actual outcomes.
+}
+\examples{
+\dontrun{
+  matches <- data.frame(...) # Your match data here
+  results <- matches_to_results(matches, date = Sys.Date())
+}
+
 }

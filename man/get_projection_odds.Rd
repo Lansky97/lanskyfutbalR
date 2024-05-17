@@ -2,13 +2,43 @@
 % Please edit documentation in R/get_projection_odds.R
 \name{get_projection_odds}
 \alias{get_projection_odds}
-\title{get projection_odds}
+\title{Calculate Projection Odds from Final Projections}
 \usage{
-get_projection_odds(final_projections, sim_standings, europe = 6, rel = 18)
+get_projection_odds(
+  final_projections,
+  sim_standings,
+  trials,
+  europe = 6,
+  rel = 18
+)
 }
 \arguments{
-\item{rel}{}
+\item{final_projections}{A data frame containing the final projected standings, including columns for team and rank (Rk).}
+
+\item{sim_standings}{A data frame containing the simulation standings from multiple trials.}
+
+\item{trials}{An integer specifying the number of trials run.}
+
+\item{europe}{An integer specifying the cutoff rank for UEFA competitions (default is 6).}
+
+\item{rel}{An integer specifying the cutoff rank for relegation (default is 18).}
+}
+\value{
+A data frame with the calculated odds of different outcomes for each team, including columns for team, rank (Rk), and odds for champion, UCL, UEFA, MID, and REL.
 }
 \description{
-get projection_odds
+This function calculates the odds of different outcomes (e.g., champion, UCL, UEFA, relegation) based on the final projections and simulation standings.
+}
+\details{
+This function calculates the odds of different outcomes for each team based on the ranks achieved in the simulation standings. It then summarizes these odds for each team.
+}
+\examples{
+\dontrun{
+  final_projections <- data.frame(team = letters[1:20], Rk = 1:20)
+  sim_standings <- data.frame(team = rep(letters[1:20], each = 100),
+                              Rk = sample(1:20, 2000, replace = TRUE))
+  trials <- 10
+  projection_odds <- get_projection_odds(final_projections, sim_standings, trials)
+}
+
 }

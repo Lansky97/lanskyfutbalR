@@ -1,17 +1,25 @@
-#' convert matches to team ratings based on xG factor of played games
+#' Calculate Team Ratings from Matches
 #'
-#' @param xG_factor
-#' @param matches
-#' @param date
+#' This function processes match data to calculate team ratings based on goals scored and expected goals (xG).
 #'
-#' @return
-#' @export
+#' @param matches A data frame containing match data.
+#' @param date The date for filtering matches (default is the current date).
+#' @param xG_factor A numeric factor used in calculating smoothed goals (default is 0.6).
+#'
+#' @return A data frame containing team ratings, including expected goals (expG), expected goals against (expGA), total smoothed goals, and total smoothed goals against for both home and away matches.
+#'
+#' @details This function filters the matches to include only those that have already been played (i.e., matches with non-missing scores and dates before the specified date). It then calculates various statistics including smoothed goals and expected goals for each team and venue (home and away).
 #'
 #' @examples
+#' \dontrun{
+#'   matches <- data.frame(...) # Your match data here
+#'   team_ratings <- matches_to_team_ratings(matches, date = Sys.Date(), xG_factor = 0.6)
+#' }
+#'
+#' @export
 matches_to_team_ratings = function(matches, date = Sys.Date(), xG_factor = 0.6){
 
 output =  matches %>%
-  #dtplyr::lazy_dt() %>%
     dplyr::filter(!is.na(HomeGoals), Date < date) %>%
     dplyr::select(Home, HomeGoals,Home_xG, Away,AwayGoals, Away_xG)%>%
     dplyr::rename(home_team = Home,
@@ -44,7 +52,6 @@ output =  matches %>%
     dplyr::mutate(league_expG = mean(expG))%>%
     dplyr::ungroup() %>%
     dplyr::arrange(team, venue)
-  #dplyr::as_tibble()
 
 tidyr::expand_grid(team = unique(matches$Home),
             venue = c("home", "away")) %>%

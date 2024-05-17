@@ -2,13 +2,28 @@
 % Please edit documentation in R/matches_to_fixtures.R
 \name{matches_to_fixtures}
 \alias{matches_to_fixtures}
-\title{convert list of matches to list of fixtures to be played}
+\title{Convert Matches to Fixtures}
 \usage{
 matches_to_fixtures(matches, date = Sys.Date())
 }
 \arguments{
-\item{date}{}
+\item{matches}{A data frame containing match data.}
+
+\item{date}{The date for filtering matches (default is the current date).}
+}
+\value{
+A data frame of upcoming fixtures including game ID, date, game week, and team names.
 }
 \description{
-convert list of matches to list of fixtures to be played
+This function processes match data to generate a data frame of upcoming fixtures from a specified date.
+}
+\details{
+This function filters the matches to include only those that are scheduled to be played on or after the specified date. It then arranges the fixtures by game week, assigns game IDs, and selects relevant columns for the output.
+}
+\examples{
+\dontrun{
+  matches <- data.frame(...) # Your match data here
+  fixtures <- matches_to_fixtures(matches, date = Sys.Date())
+}
+
 }
