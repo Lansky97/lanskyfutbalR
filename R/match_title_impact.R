@@ -28,12 +28,15 @@
 #'                                                  away_win = c(0, 0, 1, 0)))
 #'   game_id <- 10
 #'   race_teams <- c("Arsenal", "Manchester City", "Liverpool")
-#'   match_impact_results <- match_impact(projection, game_id, race_teams)
+#'   match_impact_results <- match_title_impact(projection, game_id, race_teams)
 #'   print(match_impact_results)
 #' }
 #'
+#' @importFrom dplyr pull
+#' @importFrom tidyr pivot_wider
+#'
 #' @export
-match_impact = function(projection, game_id = 10, race_teams = c("Arsenal", "Manchester City", "Liverpool")) {
+match_title_impact = function(projection, game_id = 10, race_teams = c("Arsenal", "Manchester City", "Liverpool")) {
 
 teams = projection$simmed_results %>%
                 dplyr::filter(gameID == game_id) %>%

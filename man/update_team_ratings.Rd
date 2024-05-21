@@ -43,7 +43,8 @@ This function updates the team ratings based on the results of the current game 
                            away_score = c(1, 2),
                            home_exp = c(1.5, 2.0),
                            away_exp = c(1.0, 1.5))
-  updated_team_ratings <- update_team_ratings(current_team_ratings, gw_results, xG_factor = 0.6, smooth = TRUE, hot = TRUE)
+  updated_team_ratings <- update_team_ratings(current_team_ratings, gw_results,
+                          xG_factor = 0.6, smooth = TRUE, hot = TRUE)
 }
 
 }

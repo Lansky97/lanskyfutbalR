@@ -10,12 +10,19 @@
 #'
 #' @examples
 #' \dontrun{
-#'   projection_outputs <- run_projection(trials = 100, matches, deductions, date = Sys.Date(),
-#'                                        league_adj = TRUE, xG_factor = 0.6, smooth = TRUE, hot = TRUE,
-#'                                        europe = 6, rel = 18)
+#'   projection_outputs <-
+#'   run_projection(trials = 100, matches, deductions, date = Sys.Date(),
+#'                  league_adj = TRUE, xG_factor = 0.6, smooth = TRUE,
+#'                  hot = TRUE, europe = 6, rel = 18)
+#'
 #'   projected_table <- generate_projected_table(projection_outputs)
 #'   print(projected_table)
 #' }
+#'
+#' @importFrom gt gt tab_header opt_align_table_header tab_source_note tab_footnote tab_style cell_fill cell_text
+#' @importFrom gt cells_body everything fmt
+#' @importFrom scales percent
+#' @importFrom glue glue
 #'
 #' @export
 generate_projected_table = function(projection_outputs){

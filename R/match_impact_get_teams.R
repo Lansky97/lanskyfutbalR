@@ -14,8 +14,8 @@
 #' @examples
 #' \dontrun{
 #'   projection <- list(simmed_results = data.frame(gameID = c(1, 1, 2, 2),
-#'                                                  home_team = c("Team A", "Team A", "Team B", "Team B"),
-#'                                                  away_team = c("Team C", "Team C", "Team D", "Team D")))
+#'                     home_team = c("Team A", "Team A", "Team B", "Team B"),
+#'                     away_team = c("Team C", "Team C", "Team D", "Team D")))
 #'   game_id <- 1
 #'   teams <- match_impact_get_teams(projection, game_id)
 #'   print(teams$home_team)

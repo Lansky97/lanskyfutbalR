@@ -20,9 +20,11 @@ This function creates a visually styled table showing the projected league stand
 }
 \examples{
 \dontrun{
-  projection_outputs <- run_projection(trials = 100, matches, deductions, date = Sys.Date(),
-                                       league_adj = TRUE, xG_factor = 0.6, smooth = TRUE, hot = TRUE,
-                                       europe = 6, rel = 18)
+  projection_outputs <-
+  run_projection(trials = 100, matches, deductions, date = Sys.Date(),
+                 league_adj = TRUE, xG_factor = 0.6, smooth = TRUE,
+                 hot = TRUE, europe = 6, rel = 18)
+
   projected_table <- generate_projected_table(projection_outputs)
   print(projected_table)
 }
