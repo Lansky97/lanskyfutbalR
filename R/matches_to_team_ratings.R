@@ -16,6 +16,9 @@
 #'   team_ratings <- matches_to_team_ratings(matches, date = Sys.Date(), xG_factor = 0.6)
 #' }
 #'
+#' @importFrom dplyr rename full_join
+#' @importFrom tidyr expand_grid
+#'
 #' @export
 matches_to_team_ratings = function(matches, date = Sys.Date(), xG_factor = 0.6){
 

@@ -37,6 +37,7 @@
 #'                                 league_adj = TRUE, xG_factor = 0.6, smooth = TRUE, hot = TRUE)
 #' }
 #'
+#' @importFrom dplyr filter bind_rows row_number
 #' @export
 simulate_season = function(fixtures, results, deductions, team_ratings, league_adj,xG_factor, smooth, hot){
 

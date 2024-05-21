@@ -45,6 +45,7 @@
 #'                                 europe = 6, rel = 18)
 #' }
 #'
+#' @importFrom tibble tibble
 #' @export
 run_projection = function(trials, matches, deductions, date = Sys.Date(), league_adj, xG_factor, smooth, hot, europe = 6, rel = 18){
 
