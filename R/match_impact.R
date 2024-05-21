@@ -31,6 +31,8 @@
 #'   print(match_impact_results)
 #' }
 #'
+#' @importFrom tidyr pivot_wider
+#'
 #' @export
 match_impact = function(projection, game_id = 10, race_teams = c("Arsenal", "Manchester City"), race_place = "champion") {
 

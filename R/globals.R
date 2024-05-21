@@ -1,0 +1,12 @@
+utils::globalVariables(c("Away", "AwayGoals", "Away_xG", "D", "Date", "G", "GA", "GD", "GW",
+                         "Home", "HomeGoals", "Home_xG", "L", "MID", "MP", "Pts", "REL", "Rk",
+                         "Total_smoothed_goals", "Total_smoothed_goalsA", "UCL", "UEFA", "W",
+                         "Wk", "away_exp", "away_expG", "away_expGA", "away_league_expG", "away_score",
+                         "away_team", "away_win", "away_xWin", "champion", "chance", "chance_keep", "draw", "expA",
+                          "expG", "expGA", "flag", "gA", "gameID", "gameId", "games_played", "goals", "home_exp",
+                         "home_expG", "home_expGA", "home_league_expG", "home_score", "home_team", "home_win",
+                         "home_xWin", "league_expG", "loss", "points_deducted", "result", "score", "scoreA",
+                         "smoothed_goals", "smoothed_goalsA", "team", "total_draw", "total_exp", "total_expA",
+                         "total_loss", "total_score", "total_scoreA", "total_win", "total_xDraw", "total_xLoss",
+                         "total_xWin", "trial", "venue", "win", "xD", "xDraw", "xG", "xGA", "xGD", "xL", "xLoss",
+                         "xPts", "xW", "xWin"))

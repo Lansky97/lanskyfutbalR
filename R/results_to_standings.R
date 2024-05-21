@@ -17,6 +17,7 @@
 #'   standings <- results_to_standings(results, deductions, xTable = TRUE)
 #' }
 #'
+#' @importFrom dplyr distinct arrange
 #' @export
 results_to_standings = function(results, deductions = NULL,  xTable = F){
 

@@ -23,6 +23,9 @@
 #'   print(trials)
 #' }
 #'
+#' @importFrom dplyr pull
+#' @importFrom rlang sym !!
+#'
 #' @export
 match_impact_get_trials <- function(projection, game_id, outcome) {
   projection$simmed_results %>%

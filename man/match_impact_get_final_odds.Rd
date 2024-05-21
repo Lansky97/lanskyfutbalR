@@ -49,7 +49,8 @@ This function filters the \code{simmed_final_standings} data frame to include on
   result_label <- "home_win"
   race_teams <- letters[1:5]
   race_place <- "champion"
-  final_odds <- match_impact_get_final_odds(projection, trials, result_label, race_teams, race_place)
+  final_odds <-
+  match_impact_get_final_odds(projection, trials, result_label, race_teams, race_place)
   print(final_odds)
 }
 

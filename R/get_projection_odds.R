@@ -21,6 +21,7 @@
 #'   projection_odds <- get_projection_odds(final_projections, sim_standings, trials)
 #' }
 #'
+#' @importFrom dplyr case_when
 #' @export
 get_projection_odds = function(final_projections, sim_standings, trials, europe = 6, rel =18){
 

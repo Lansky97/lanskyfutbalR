@@ -29,8 +29,13 @@
 #'                            away_score = c(1, 2),
 #'                            home_exp = c(1.5, 2.0),
 #'                            away_exp = c(1.0, 1.5))
-#'   updated_team_ratings <- update_team_ratings(current_team_ratings, gw_results, xG_factor = 0.6, smooth = TRUE, hot = TRUE)
+#'   updated_team_ratings <- update_team_ratings(current_team_ratings, gw_results,
+#'                           xG_factor = 0.6, smooth = TRUE, hot = TRUE)
 #' }
+#'
+#' @importFrom magrittr %>%
+#' @importFrom dplyr select mutate group_by ungroup left_join right_join across if_else
+#' @importFrom tidyr pivot_longer
 #'
 #' @export
 update_team_ratings = function(current_team_ratings, gw_results, xG_factor,smooth, hot){
