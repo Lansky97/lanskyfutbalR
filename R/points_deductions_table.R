@@ -25,7 +25,7 @@ points_deductions_table = function(results, deductions){
   teams = unique(home_teams, away_teams)
 
   if(is.null(deductions)){
-    deduction_table = tibble::tibble(team = teams, points_deducted = 0)
+    deductions = tibble::tibble(team = teams, points_deducted = 0)
   }
 
   deduction_table = tibble::tibble(team = teams) %>%
