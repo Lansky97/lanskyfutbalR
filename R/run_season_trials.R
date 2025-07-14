@@ -38,48 +38,41 @@
 #'                                    league_adj = TRUE, xG_factor = 0.6, smooth = TRUE, hot = TRUE)
 #' }
 #'
+#' @import foreach
+#' @import doParallel
 #' @export
 run_season_trials = function(trials, fixtures, results, deductions, team_ratings, league_adj,xG_factor,smooth,hot){
 
-  sim_results = vector('list', trials)
-  sim_ratings = vector('list', trials)
-  sim_standings = vector('list', trials)
+  cores=parallel::detectCores()
+  cl <- makePSOCKcluster(cores[1]-1)
+  registerDoParallel(cl)
 
-  names(sim_results) = seq(1:trials)
-  names(sim_ratings) = seq(1:trials)
-  names(sim_standings) = seq(1:trials)
-
-  for (trial in 1:trials) {
-
-    sim_summary = simulate_season(fixtures = fixtures,
-                                  results = results,
-                                  deductions = deductions,
-                                  team_ratings = team_ratings,
-                                  league_adj = league_adj,
-                                  xG_factor = xG_factor,
-                                  smooth = smooth,
-                                  hot = hot)
-
-    sim_results[[paste(trial)]] = sim_summary$results %>%
-                                    dplyr::mutate(trial = trial)
-
-    sim_ratings[[paste(trial)]] = sim_summary$ratings %>%
-                                    dplyr::mutate(trial = trial)
-
-    sim_standings[[paste(trial)]] = sim_summary$standings %>%
-                                      dplyr::mutate(trial = trial)
-
-
-
+  sim_summary <- foreach::foreach(
+    trial = 1:trials,
+    .combine = 'rbind',
+    .packages = c('dplyr','tidyr','lanskyfutbalR')
+  ) %dopar% {
+    simulate_season(
+      fixtures = fixtures,
+      results = results,
+      deductions = deductions,
+      team_ratings = team_ratings,
+      league_adj = league_adj,
+      xG_factor = xG_factor,
+      smooth = smooth,
+      hot = hot
+    )
   }
 
-  sim_results = sim_results %>%
+  stopCluster(cl)
+
+  sim_results = sim_summary[,1] %>%
                   dplyr::bind_rows()
 
-  sim_ratings = sim_ratings %>%
+  sim_ratings = sim_summary[,2] %>%
                   dplyr::bind_rows()
 
-  sim_standings = sim_standings %>%
+  sim_standings = sim_summary[,3] %>%
                     dplyr::bind_rows()
 
   list(results = sim_results,

@@ -16,7 +16,9 @@ Imports:
     tibble,
     gt (>= 0.10.1),
     scales,
-    glue
+    glue,
+    foreach,
+    doParallel
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
